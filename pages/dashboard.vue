@@ -461,15 +461,11 @@ export default {
       }
     },
     previousVisit() {
-      const shortMonth = [
-        'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
-      ];
-       const viewsTillNow = [];
+      const viewsTillNow = [];
       for (let i = 7; i >= 0; i -= 1) {
         const date = this.$moment().subtract(i, 'days').format('YYYY-MM-DD');
         viewsTillNow.push({ date, count: this.getViewsCount(date), });
       }
-      console.log(viewsTillNow);
       return viewsTillNow;
     },
   },
