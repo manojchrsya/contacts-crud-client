@@ -250,9 +250,8 @@ export default {
     ],
     contacts: [],
     showCustomer: false,
-    editedItem: {
-      profile: {},
-    },
+    editedItem: {},
+    profile: {},
   }),
   watch: {
     search:
@@ -270,7 +269,7 @@ export default {
       return _;
     },
     getProfile() {
-      return this.editedItem.profile ? this.editedItem.profile.url : '';
+      return this.profile ? this.profile.url : '';
     },
     firstNameErrors() {
       const errors = [];
@@ -351,7 +350,7 @@ export default {
     async editContact(item) {
       this.showCustomer = true;
       this.editedItem = item;
-      this.editedItem.profile = this.editedItem.profile || {};
+      this.profile = item.profile || {}
       await this.$axios.post(`/Contacts/${this.editedItem.id}/updateView`);
     },
     getViewsCount(date) {
@@ -454,8 +453,7 @@ export default {
         // reset the input type file
         this.$refs.file.type = 'text';
         this.$refs.file.type = 'file';
-        this.editedItem.profile = {};
-        _.assign(this.editedItem.profile, response.data);
+        this.profile = response.data;
       } catch(error) {
         window.getApp.$emit('SHOW_ERROR_MESSAGE', { message: error.message });
       }
